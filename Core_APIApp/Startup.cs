@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Core_APIApp.Services;
 
 namespace Core_APIApp
 {
@@ -52,6 +53,10 @@ namespace Core_APIApp
             services.AddDbContext<AppDataDbContext>((options) => {
                 options.UseSqlServer(Configuration.GetConnectionString("AppDbConnection"));
             });
+
+            // register all repository classes in the DI Container
+            services.AddScoped<IRepository<Category,int>, CategoryRepository> ();
+            services.AddScoped<IRepository<Product, int>, ProductRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

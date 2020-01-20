@@ -41,3 +41,11 @@ dotnet ef migrations add fisrtMigration -c Core_APIApp.Models.AppDataDbContext
  e.g
 
  dotnet ef  database update -c Core_APIApp.Models.AppDataDbContext
+ ==========================================================================================================
+
+ ModelStateDictionary : The 'ModelState' against the Data Validation
+ ControllerContext : COntroller that is currently under execution
+			--> Map the HTTP request to a method from Controller class
+
+- IActionResult is a common contract between API and Client 
+			
