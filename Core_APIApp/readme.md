@@ -15,3 +15,29 @@
 1. Microsoft.EntityFrameworkCore.SqlServer
 1. Microsoft.EntityFrameworkCore.Tools --> CLI for Data Migration
 1. Microsoft.EntityFrameworkCore.Design --> Map the CLR objects with the Db table
+
+=========================================================================================================
+
+Note: .NET Core 3.x +
+dotnet tool install --global dotnet-ef --version 3.1.0 / 3.0.0 
+
+Data Migration Commands
+
+1. Generate Migration Files
+	YYYYMMDD<RNDNumber>_<MigrationName>.cs
+			Create Table Commnands based on CLR Classes
+
+dotnet ef migrations add <migrationname> -c <NameSpace.DbContext class>
+
+e.g.
+dotnet ef migrations add fisrtMigration -c Core_APIApp.Models.AppDataDbContext
+ 20200120656565_firstMigration.cs
+
+ The Snapshot file that will defin the Mapping between CLR to Table
+
+ Command to Update database
+
+ dotnet ef  database  update -c <NameSpace.DbContext class>
+ e.g
+
+ dotnet ef  database update -c Core_APIApp.Models.AppDataDbContext
