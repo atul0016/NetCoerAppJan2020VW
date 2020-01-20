@@ -17,6 +17,9 @@ namespace Core_APIApp.Models
         public string CategoryName { get; set; }
         [Required(ErrorMessage = "Base Price is required")]
         public int BasePrice { get; set; }
+
+        // navigation property
+      //  public ICollection<Product> Products { get; set; }
     }
 
     public class Product

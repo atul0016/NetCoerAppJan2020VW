@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core_APIApp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -40,10 +42,17 @@ namespace Core_APIApp
         /// 5. CORS
         /// 6. Custom Services
         /// 7. Messaging Formatters
+        /// 8. Database Context aka DbContext class
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // register the DbContext in the DI Container
+
+            services.AddDbContext<AppDataDbContext>((options) => {
+                options.UseSqlServer(Configuration.GetConnectionString("AppDbConnection"));
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
