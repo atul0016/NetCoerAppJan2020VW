@@ -10,7 +10,7 @@ using Core_APIApp.Services;
 namespace Core_APIApp.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+   // [ApiController]
     public class CategoryController : ControllerBase
     {
         private readonly IRepository<Category, int> catRepository;    
@@ -32,8 +32,12 @@ namespace Core_APIApp.Controllers
             var res = await catRepository.GetAsync(id);
             return Ok(res);
         }
-        [HttpPost]
-        public async Task<IActionResult> PostAsync(Category category)
+        //[HttpPost("{CategoryId}/{CategoryName}/{BasePrice}")]
+        // public async Task<IActionResult> PostAsync([FromBody]Category category)
+        //public async Task<IActionResult> PostAsync([FromQuery]Category category)
+        // public async Task<IActionResult> PostAsync([FromRoute]Category category)
+        [HttpPost]   
+       public async Task<IActionResult> PostAsync([FromForm]Category category)
         {
             // checking for Model Validation
             if (ModelState.IsValid)

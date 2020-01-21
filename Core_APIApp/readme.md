@@ -48,4 +48,18 @@ dotnet ef migrations add fisrtMigration -c Core_APIApp.Models.AppDataDbContext
 			--> Map the HTTP request to a method from Controller class
 
 - IActionResult is a common contract between API and Client 
-			
+
+===========================================================================================================
+ASP.NET Core API Programming
+1. Parameter Binding
+	Body Parameters for POST (Default but managed by ApiController Attribute class)
+	Parameter Binding Objects
+		FromBody --> Read data from Http request Body for POST request
+		FromQuery --> Read data from Http request in QuryString for POST request
+		FromForm --> Read data from Http request in Form Model Object for POST request
+		FromRoute --> Data is posted using HTTP Route Parameters for POST request
+2. Exception Handling
+3. Middlewares
+4. Secure
+5. CORS
+6. Deploymentp

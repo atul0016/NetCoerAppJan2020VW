@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Core_APIApp.Services;
+using Newtonsoft.Json.Serialization;
 
 namespace Core_APIApp
 {
@@ -58,7 +59,12 @@ namespace Core_APIApp
             services.AddScoped<IRepository<Category,int>, CategoryRepository> ();
             services.AddScoped<IRepository<Product, int>, ProductRepository>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc() // As-It-is Entity JSON Serilization
+                .AddJsonOptions(options =>
+                     options.SerializerSettings.ContractResolver
+              = new DefaultContractResolver() // <---- Define the default JSON serialization for CLR objects
+                 )
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
