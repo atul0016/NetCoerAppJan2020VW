@@ -40,8 +40,8 @@ namespace Core_APIApp.Controllers
         //public async Task<IActionResult> PostAsync([FromForm]Category category)
         public async Task<IActionResult> PostAsync(Category category)
         {
-            try
-            {
+            //try
+            //{
                 // checking for Model Validation
                 if (ModelState.IsValid)
                 {
@@ -58,11 +58,11 @@ namespace Core_APIApp.Controllers
                     return Ok(res);
                 }
                 return BadRequest(ModelState);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, Category category)

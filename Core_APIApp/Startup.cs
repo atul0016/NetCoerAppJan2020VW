@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Core_APIApp.Services;
 using Newtonsoft.Json.Serialization;
 using Microsoft.OpenApi.Models; // for Swagger
+using Core_APIApp.Middlewares;
 namespace Core_APIApp
 {
     public class Startup
@@ -102,6 +103,8 @@ namespace Core_APIApp
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+            // use the custom Middleware method
+            app.UseErrorHandlerMiddleware();
 
 
             app.UseMvc();
