@@ -10,7 +10,7 @@ using Core_APIApp.Services;
 namespace Core_APIApp.Controllers
 {
     [Route("api/[controller]")]
-   // [ApiController]
+     [ApiController]
     public class CategoryController : ControllerBase
     {
         private readonly IRepository<Category, int> catRepository;    
@@ -36,16 +36,33 @@ namespace Core_APIApp.Controllers
         // public async Task<IActionResult> PostAsync([FromBody]Category category)
         //public async Task<IActionResult> PostAsync([FromQuery]Category category)
         // public async Task<IActionResult> PostAsync([FromRoute]Category category)
-        [HttpPost]   
-       public async Task<IActionResult> PostAsync([FromForm]Category category)
+        [HttpPost]
+        //public async Task<IActionResult> PostAsync([FromForm]Category category)
+        public async Task<IActionResult> PostAsync(Category category)
         {
-            // checking for Model Validation
-            if (ModelState.IsValid)
+            try
             {
-                var res = await catRepository.CreateAsync(category);
-                return Ok(res);
+                // checking for Model Validation
+                if (ModelState.IsValid)
+                {
+                    // cehck for Uniqueness of CategoryId
+                    var cat = (from c in catRepository.GetAsync().Result.ToList()
+                               where c.CategoryId == category.CategoryId
+                               select c).FirstOrDefault();
+                    if (cat != null)
+                    {
+                        throw new Exception($"The Category with Category Id {category.CategoryId} is already present");
+                    }
+
+                    var res = await catRepository.CreateAsync(category);
+                    return Ok(res);
+                }
+                return BadRequest(ModelState);
             }
-            return BadRequest(ModelState);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, Category category)

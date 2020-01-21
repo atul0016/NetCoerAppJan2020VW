@@ -59,7 +59,22 @@ ASP.NET Core API Programming
 		FromForm --> Read data from Http request in Form Model Object for POST request
 		FromRoute --> Data is posted using HTTP Route Parameters for POST request
 2. Exception Handling
+	Error Handling at Entity Level
+		Standard Error Attributes using DataAnnotations
+		Custom Data Annotations
+	Process Based Error Handling
+		Exception Management
 3. Middlewares
+	Access of HttpContext class using the 'RequestDelegate' delegate
+		The RequestDelegate accepts 'HttpContext' as input parameter
+		and execute the logic using 'InvokeAsync()' method
+			The first parameter to this method is HttpContext e.g. if the Middleware is for Exception the
+				InvokeAsync() method will habe try...catch block
+	The IApplicationBuilder interface and its Use() method will be responsible to register 
+		the Custom Middleware(?) in Http Pipeline.
+		Custom Middleware
+				This is the class that is ctor injected by RequestDelegate and contains 
+					InvokeAsync() method
 4. Secure
 5. CORS
 6. Deploymentp

@@ -16,11 +16,28 @@ namespace Core_APIApp.Models
         [StringLength(100)]
         public string CategoryName { get; set; }
         [Required(ErrorMessage = "Base Price is required")]
+        [NumericValidator(ErrorMessage = "Price cannot be -ve")]
         public int BasePrice { get; set; }
 
         // navigation property
       //  public ICollection<Product> Products { get; set; }
     }
+
+    public class NumericValidatorAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            int val = Convert.ToInt32(value);
+            if (val < 0)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+
+
+
 
     public class Product
     {

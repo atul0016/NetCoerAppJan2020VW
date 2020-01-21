@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Core_APIApp.Services;
 using Newtonsoft.Json.Serialization;
-
+using Microsoft.OpenApi.Models; // for Swagger
 namespace Core_APIApp
 {
     public class Startup
@@ -59,6 +59,15 @@ namespace Core_APIApp
             services.AddScoped<IRepository<Category,int>, CategoryRepository> ();
             services.AddScoped<IRepository<Product, int>, ProductRepository>();
 
+            // registration of Swagger Service
+            services.AddSwaggerGen(c =>
+            {
+                // the extension method that will generate Swagger Endpoints and
+                // documentation of WEB API
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
+
+
             services.AddMvc() // As-It-is Entity JSON Serilization
                 .AddJsonOptions(options =>
                      options.SerializerSettings.ContractResolver
@@ -81,6 +90,19 @@ namespace Core_APIApp
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // the Swagger Middleware
+
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
+
 
             app.UseMvc();
         }
